@@ -8,7 +8,7 @@ import bodyParser from 'body-parser';
 import chalk from 'chalk';
 
 import { PORT, HOST, SECRET } from './env';
-import { client } from './core/redis';
+import { client, asyncClient } from './core/redis';
 import { schema as typeDefs } from './schema';
 import { resolvers } from './resolvers';
 import { models } from './models';
@@ -19,7 +19,7 @@ const server = new ApolloServer({
   context: {
     context: 'from context',
     models,
-    client,
+    client: asyncClient,
   },
 });
 
@@ -38,5 +38,5 @@ server.applyMiddleware({ app, path: '/graphql' });
 
 app.listen(PORT, HOST, () => {
   console.log(chalk.hex('#009688')(' [*] App: Bootstrap Succeeded.'));
-  console.log(chalk.hex('#009688')(` [*] Host: http://${HOST}:${PORT}/.`));
+  console.log(chalk.hex('#009688')(` [*] Host: http://${HOST}:${PORT}/graphql`));
 });

@@ -4,17 +4,17 @@ const { promisify } = require('util');
 
 import { REDIS_PORT, REDIS_HOST, REDIS_PASSWORD } from '../env';
 
-const defaultClient = redis.createClient(REDIS_PORT, REDIS_HOST);
-defaultClient.auth(REDIS_PASSWORD);
+export const client = redis.createClient(REDIS_PORT, REDIS_HOST);
+client.auth(REDIS_PASSWORD);
 
-export const client = Object.freeze(
+export const asyncClient = Object.freeze(
   {
-    get: promisify(defaultClient.get).bind(defaultClient),
-    set: promisify(defaultClient.set).bind(defaultClient),
-    on: promisify(defaultClient.on).bind(defaultClient),
+    get: promisify(client.get).bind(client),
+    set: promisify(client.set).bind(client),
+    on: promisify(client.on).bind(client),
   }
 );
 
-client.set('hellow', 'This is from redis!');
-client.on('connect').then(() => console.log(chalk.hex('#009688')(' [*] Redis: Connection Succeeded.')));
-client.on('error').then(err => console.error(err));
+asyncClient.set('hellow', 'This is from redis!');
+asyncClient.on('connect').then(() => console.log(chalk.hex('#009688')(' [*] Redis: Connection Succeeded.')));
+asyncClient.on('error').then(err => console.error(err));

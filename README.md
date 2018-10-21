@@ -1,15 +1,15 @@
 # TODOs
 
-- `express`
-- `nodemon `
-- `GraphQL `
-  - `apollo-server `
+- ~~express~~
+- ~~nodemon~~
+- ~~GraphQL~~
+  - ~~apollo Server~~
 - CMS
   - graphCMS
   - redirect (abstraction layer)
 - DB
-  - `cloud `
-  - `redis `
+  - ~~cloud~~
+  - ~~redis~~
 - cache
   - cloud
   - redis
