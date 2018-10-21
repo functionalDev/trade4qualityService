@@ -1,52 +1,42 @@
-const { ApolloServer, gql } = require('apollo-server')
+import cors from 'cors';
+import express from 'express';
+import { ApolloServer } from 'apollo-server-express';
 
-// This is a (sample) collection of books we'll be able to query
-// the GraphQL server for.  A more complete example might fetch
-// from an existing data source like a REST API or database.
-const books = [
-  {
-    title: 'Harry Potter and the Chamber of Secrets',
-    author: 'J.K. Rowling'
+import session from 'express-session';
+import connectRedis from 'connect-redis';
+import bodyParser from 'body-parser';
+import chalk from 'chalk';
+
+import { PORT, HOST, SECRET } from './env';
+import { client } from './core/redis';
+import { schema as typeDefs } from './schema';
+import { resolvers } from './resolvers';
+import { models } from './models';
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: {
+    context: 'from context',
+    models,
+    client,
   },
-  {
-    title: 'Jurassic Park',
-    author: 'Michael Crichton'
-  }
-]
+});
 
-// Type definitions define the "shape" of your data and specify
-// which ways the data can be fetched from the GraphQL server.
-const typeDefs = gql`
-  # Comments in GraphQL are defined with the hash (#) symbol.
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+app.use(session({
+  store: new (connectRedis(session))({ client }),
+  name: 'sid',
+  resave: true,
+  saveUninitialized: true,
+  secret: SECRET,
+}));
 
-  # This "Book" type can be used in other type declarations.
-  type Book {
-    title: String
-    author: String
-  }
+server.applyMiddleware({ app, path: '/graphql' });
 
-  # The "Query" type is the root of all GraphQL queries.
-  # (A "Mutation" type will be covered later on.)
-  type Query {
-    books: [Book]
-  }
-`
-
-// Resolvers define the technique for fetching the types in the
-// schema.  We'll retrieve books from the "books" array above.
-const resolvers = {
-  Query: {
-    books: () => books
-  }
-}
-
-// In the most basic sense, the ApolloServer can be started
-// by passing type definitions (typeDefs) and the resolvers
-// responsible for fetching the data for those types.
-const server = new ApolloServer({ typeDefs, resolvers })
-
-// This `listen` method launches a web-server.  Existing apps
-// can utilize middleware options, which we'll discuss later.
-server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`)
-})
+app.listen(PORT, HOST, () => {
+  console.log(chalk.hex('#009688')(' [*] App: Bootstrap Succeeded.'));
+  console.log(chalk.hex('#009688')(` [*] Host: http://${HOST}:${PORT}/.`));
+});

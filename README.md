@@ -1,9 +1,15 @@
 # TODOs
 
-- GraphQL
-  - apollo Server
+- express ``
+- nodemon ``
+- GraphQL ``
+  - apollo Server ``
 - CMS
   - graphCMS
-  - redirect
-- DB ?
+  - redirect (abstraction layer)
+- DB
+  - cloud ``
+  - redis ``
 - cache
+  - cloud
+  - redis
