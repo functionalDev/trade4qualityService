@@ -20,7 +20,7 @@ type Query {
   }
 `;
 
-export const schema = [
+export const schemas = [
   basicSchema,
   external,
 ];
