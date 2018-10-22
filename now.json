@@ -2,7 +2,7 @@
   "scale": {
     "bru1": {
       "min": 1,
-      "max": "auto"
+      "max": "1"
     }
   },
   "alias": "trade4qualityService"
