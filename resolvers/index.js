@@ -1,4 +1,4 @@
-// import { client } from '../core/redis';
+import { trello } from './trello';
 const MESSAGE_ADDED = 'MESSAGE_ADDED';
 const resolver = {
   Query: {
@@ -50,7 +50,7 @@ const resolver = {
           text,
           userId,
         };
-        client.rpushx(`messages`, JSON.stringify(message));
+        client.rpush(`messages`, JSON.stringify(message));
         console.log(message);
         pubsub.publish(MESSAGE_ADDED, { messageAdded: message });
         return message;
@@ -72,4 +72,4 @@ const resolver = {
   },
 };
 
-export const resolvers = [ resolver ];
+export const resolvers = [ resolver, trello ];

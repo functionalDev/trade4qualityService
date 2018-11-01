@@ -1,15 +1,26 @@
 # TODOs
 
+### ENV
+- ~~Git + GitHub~~
+- ~~Zeit.co/now~~
+-- ~~hosting with http/2~~
+-- ~~auto-deployment on github commit/pull-request~~
+- ~~config for DEV, PROD~~
+
+### node
+
 - ~~express~~
 - ~~nodemon~~
 - ~~GraphQL~~
   - ~~apollo Server~~
-- CMS
+
+
+### CMS
   - graphCMS
   - redirect (abstraction layer)
-- DB
+### DB
   - ~~cloud~~
   - ~~redis~~
-- cache
+### cache
   - cloud
   - redis

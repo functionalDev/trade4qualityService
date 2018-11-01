@@ -15,7 +15,8 @@ import connectRedis from 'connect-redis';
 // import chalk from 'chalk';
 // import { execute, subscribe } from 'graphql';
 
-import { PORT, HOST, SECRET } from './env';
+import { PORT, HOST, SECRET } from './config';
+// import test from './config';
 import { client, asyncClient } from './core/redis';
 import { schemas } from './schema';
 import { resolvers } from './resolvers';
@@ -23,7 +24,6 @@ import { models } from './models';
 
 import { createServer } from 'http';
 // import { SubscriptionServer } from 'subscriptions-transport-ws';
-
 const pubsub = new PubSub();
 const app = express();
 app.use(cors());

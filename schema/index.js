@@ -1,5 +1,6 @@
 
 import { external } from './external';
+import { trello } from './trello';
 import { gql } from 'apollo-server-express';
 
 // type Mutation {
@@ -23,4 +24,5 @@ type Query {
 export const schemas = [
   basicSchema,
   external,
+  trello,
 ];
