@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node index.js",
-    "start": "cross-env NODE_ENV=production nodemon --exec babel-node index.js"
+    "dev": "cross-env NODE_ENV=local nodemon --exec babel-node index.js",
+    "start": "nodemon --exec babel-node index.js",
+    "deploy": "now --public && now alias trade4qualityservice"
   },
   "keywords": [],
   "author": "",

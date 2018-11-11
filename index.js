@@ -62,7 +62,7 @@ const server = new ApolloServer({
         pubsub,
         client: asyncClient,
         // me,
-        secret: process.env.SECRET,
+        secret: SECRET,
         // loaders: {
         //   user: new DataLoader(keys =>
         //     loaders.user.batchUsers(keys, models),

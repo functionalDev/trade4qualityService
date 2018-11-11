@@ -9,7 +9,9 @@ export const trello = {
         .then(body => JSON.parse(body));
     },
     allIdeas: (parent, args, { context }) => {
-      return context;
+      return fetch('https://api.trello.com/1/lists/5b51d6c8801fd36dda9c3cf3/cards')
+        .then(res => res.text())
+        .then(body => JSON.parse(body));
     },
   },
   TrelloCard: {
